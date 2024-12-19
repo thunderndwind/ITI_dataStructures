@@ -24,26 +24,25 @@ int main()
 
         cout << "index 2: " << list[2] << endl; // 15
 
-        LinkedList<float> floatList;
+        LinkedList<int> list2;
 
-        floatList.push(10);
+        list2.push(40);
+        list2.push(50);
+        list2.push(60);
 
-        floatList.insertAfter(10, 20);
-        floatList.insertAfter(20, 30);
+        list.join(list2);
 
-        floatList.insertBefore(20, 15);
-        floatList.insertBefore(15, 12);
+        cout << "list elements: \n";
+        list.display();
 
-        floatList.display();
+        list2.insertAtIndex(0, 35);
+        cout << "list elements: \n";
+        list2.display();
+        LinkedList<int> list3;
+        list3 = list + list2;
 
-        cout << "deleted element: " << floatList.pop() << endl;
-        floatList.display();
-
-        cout << "float list length: " << floatList.getCount() << endl;
-
-        cout << "index 1: " << floatList.getData(1) << endl;
-
-        cout << "index 2: " << floatList[2] << endl;
+        cout << "list3 elements: \n";
+        list3.display();
     }
     catch (char const *err)
     {

@@ -3,7 +3,7 @@
 ## Objectives:
 
 - Learn about Data Structures.
-- Understand and Implement the concept Linked List.
+- Understand and Implement the concept of Linked List.
 
 ## Tasks:
 

@@ -87,13 +87,24 @@ public:
         return value;
     }
 
-    void insertAfter(int value, int newValue)
+    Node *findNode(int value)
     {
         Node *current = head;
         while (current != NULL && current->data != value)
         {
             current = current->next;
         }
+        return current;
+    }
+
+    void insertAfter(int value, int newValue)
+    {
+        Node *current = findNode(value);
+
+        // while (current != NULL && current->data != value)
+        // {
+        //     current = current->next;
+        // }
 
         if (current != NULL)
         {
@@ -121,11 +132,11 @@ public:
 
     void insertBefore(int value, int newValue)
     {
-        Node *current = head;
-        while (current != NULL && current->data != value)
-        {
-            current = current->next;
-        }
+        Node *current = findNode(value);
+        // while (current != NULL && current->data != value) // change to a method to find speceific node
+        // {
+        //     current = current->next;
+        // }
 
         if (current != NULL)
         {
@@ -148,6 +159,109 @@ public:
         else
         {
             throw "value not found";
+        }
+    }
+
+    // add insert to index
+    // join and + operator overload
+    void insertAtIndex(int index, T value)
+    {
+        if (index < 0 || index > count)
+        {
+            throw "index out of range";
+        }
+
+        if (index == 0)
+        {
+            Node *newNode = new Node(value);
+            if (head == NULL)
+            {
+                head = tail = newNode;
+            }
+            else
+            {
+                newNode->next = head;
+                head->prev = newNode;
+                head = newNode;
+            }
+            count++;
+            return;
+        }
+
+        if (index == count)
+        {
+            push(value);
+            return;
+        }
+
+        Node *current = NULL;
+        if (index <= count / 2)
+        {
+            current = head;
+            for (int i = 0; i < index; i++)
+            {
+                current = current->next;
+            }
+        }
+        else
+        {
+            current = tail;
+            for (int i = count; i > index; i--)
+            {
+                current = current->prev;
+            }
+        }
+
+        Node *newNode = new Node(value);
+        newNode->next = current;
+        newNode->prev = current->prev;
+        current->prev->next = newNode;
+        current->prev = newNode;
+        count++;
+    }
+
+    LinkedList<T> &operator=(const LinkedList<T> &other)
+    {
+        if (this != &other)
+        {
+            Node *current = other.head;
+            while (current != NULL)
+            {
+                push(current->data);
+                current = current->next;
+            }
+        }
+        return *this;
+    }
+
+    LinkedList<T> operator+(const LinkedList<T> &other) const
+    {
+        LinkedList<T> result;
+
+        Node *current = head;
+        while (current != NULL)
+        {
+            result.push(current->data);
+            current = current->next;
+        }
+
+        current = other.head;
+        while (current != NULL)
+        {
+            result.push(current->data);
+            current = current->next;
+        }
+
+        return result;
+    }
+
+    void join(const LinkedList<T> &other)
+    {
+        Node *current = other.head;
+        while (current != NULL)
+        {
+            push(current->data);
+            current = current->next;
         }
     }
 
@@ -223,8 +337,7 @@ public:
     {
         if (head == NULL)
         {
-            cout << "The list is empty." << endl;
-            return;
+            throw "The list is empty.";
         }
 
         Node *current = head;

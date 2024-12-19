@@ -5,3 +5,5 @@ Welcome to my repository for the ITI Data Structures course using C++. This repo
 ## Labs
 
 - **[Lab 1](lab1/README.md)**: Implementing a doubly linked list with custom functionalities
+
+- **[Lab 2](lab2/README.md)**: Implementing a Queue
